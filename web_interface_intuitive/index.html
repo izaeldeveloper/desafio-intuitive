@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca de Operadoras</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+</head>
+<body>
+    <main>
+        <div id="app">
+            <h1>BUSCA OPERADORAS</h1>
+            <input placeholder="Digite a razão social" v-model="razao">
+            <button @click="buscar">Buscar</button>
+            <table>
+                <tr id="cabecalho">
+                    <script>
+                        const caracteristicasOperadoras = [
+                            "Registro ANS",
+                            "CNPJ",
+                            "RAZÃO SOCIAL",
+                            "NOME FANTASIA",
+                            "MODALIDADE",
+                            "REGIÃO DE COMÉRCIO",
+                            "REPRESENTANTE",
+                            "ENDEREÇO",
+                            "TELEFONE",
+                            "FAX",
+                            "E-MAIL",
+                        ]
+    
+                        let cabecalho = document.getElementById("cabecalho");
+                        for(let i = 0; i < caracteristicasOperadoras.length; i++){
+                            cabecalho.innerHTML += `<th>${caracteristicasOperadoras[i]}</th>`;
+                        }
+                    </script>
+                </tr>
+                <tr v-for="operadora in operadoras" :key="operadora['Razao_Social']">
+                    <td>{{ operadora['Registro_ANS'] }}</td>
+                    <td>{{ operadora['CNPJ']}}</td>
+                    <td>{{ operadora['Razao_Social']}}</td>
+                    <td>{{ operadora['Nome_Fantasia']}}</td>
+                    <td>{{ operadora['Modalidade']}}</td>
+                    <td>{{ operadora['Regiao_de_Comercializacao']}}</td>
+                    <td>{{ operadora['Representante']}} - {{ operadora['Cargo_Representante'] }}</td>
+                    <td>{{ operadora['Logradouro'] }}, {{ operadora['Numero'] }}, {{ operadora['Complemento'] }} - {{ operadora['Bairro'] }}, {{ operadora['Cidade'] }}, {{ operadora['UF'] }} - {{ operadora['CEP'] }} </td>
+                    <td>{{ operadora['DDD'] }} {{ operadora['Telefone'] }}</td>
+                    <td>{{ operadora['Fax'] }}</td>
+                    <td>{{ operadora['Endereco_eletronico'] }}</td>
+                </tr>
+                    <!--{{ operadora['Nome_Fantasia'] || operadora['Razao_Social'] }}-->
+
+            </table>
+        </div>
+    
+    </main>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function(){
+            const { createApp } = Vue;
+
+            createApp({
+                data() {
+                    return {
+                        razao: '',
+                        operadoras: [],
+                        operadorasOriginal: []
+                    };
+                },
+                methods: {
+                    async buscar() {
+                        console.log('Termo de busca: ', this.razao);
+                        if(this.razao.trim() === '') {
+                            this.operadoras = this.operadorasOriginal;
+                            return;
+                        }
+                        try {
+                            const resposta = await fetch(`http://127.0.0.1:5000/buscar?razao=${encodeURIComponent(this.razao)}`);
+                           
+                            if (!resposta.ok) {
+                                const errorData = await resposta.text();
+                                throw new Error(errorData.erro || "Erro ao buscar dados");
+                            }
+
+                    
+                                const data = await resposta.json();
+                                console.log('Dados recebidos: ', data)
+                                this.operadoras = data;    
+                            
+
+                        } catch (error) {
+                            console.error("Erro ao buscar operadoras: ", error.message);
+                            alert(`Erro: ${error.message}`);
+                        }
+                    }
+                },
+                async created(){
+                        try {
+                            const resposta = await fetch("http://127.0.0.1:5000/operadoras");
+
+                            if(!resposta.ok) {
+                                throw new Error("Erro ao carregar dados");
+                            }
+                            const data = await resposta.json();
+                            this.operadorasOriginal = data;
+                            this.operadoras = data;
+                        }catch (error) {
+                            console.error("Erro ao carregar operadoras: ", error);
+                        }
+                }
+            }).mount('#app');
+
+        });
+    </script>
+</body>
+</html>

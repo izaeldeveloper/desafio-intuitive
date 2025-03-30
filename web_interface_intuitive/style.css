@@ -1,0 +1,75 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html{
+    min-height: 100%;
+    height: auto;
+    border-left: 10px SOLID purple;
+    border-right: 10px SOLID purple;
+}
+
+body{
+    background-color: #1d151c;
+}
+
+main{
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px;
+}
+
+#app h1{
+    color: white;
+    font-weight: lighter;
+
+}
+
+#app input{
+    padding-left: 10px;
+    border: 0;
+    height: 40px;
+    outline: 0;
+    margin: 15px 0;
+    width: 300px;
+}
+
+#app button{
+    display: block;
+    margin: 15px auto;
+    background-color: rgb(214, 0, 214);
+    color: white;
+    text-transform: uppercase;
+    border: 0;
+    height: 40px;
+    width: 300px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#app button:hover{
+    transform: scale(1.05);
+}
+
+table tr{
+    background-color: white;
+}
+
+table th{
+    width: auto;
+    font-size: 12px;
+    background-color: rgb(214, 0, 214);
+    color: white;
+}
+
+table td{
+    width: auto;
+    font-size: 10px;
+    height: 40px;
+    padding: 0 5px;
+    transition: 1s;
+    opacity: 1;
+}
