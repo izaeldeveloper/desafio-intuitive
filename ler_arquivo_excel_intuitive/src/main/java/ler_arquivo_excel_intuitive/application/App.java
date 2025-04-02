@@ -1,9 +1,9 @@
-package lerArquivoExcel.application;
+package ler_arquivo_excel_intuitive.application;
 
 import java.io.IOException;
 import java.util.List;
 
-public class app {
+public class App {
 	public static void main(String[] args) throws IOException {
 		
 		//Criei uma classe para Gerenciar todo Teste

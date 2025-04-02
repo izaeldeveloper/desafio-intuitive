@@ -31,7 +31,7 @@ CREATE TABLE operadoras(
 
 /*IMPORTANDO TABELA DE OPERADORAS*/
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/operadoras/operadoras_cadastradas.csv"
+LOAD DATA INFILE "sql_intuitive/operadoras/operadoras_cadastradas.csv"
 INTO TABLE operadoras FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
@@ -53,35 +53,35 @@ REFERENTES A 2024 E IMPORTEI TODOS COMO SQL*/
 /*PODERIA TER IMPORTADO OS DE 2023 TAMBÉM MAS SERIA REDUNDANTE
 E NÃO NECESSÁRIO PARA AS QUERIES ANÁLITICAS REQUISITADAS*/
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/demonstracoes_2024/1T2024.csv"
+LOAD DATA INFILE "sql_intuitive/demonstracoes_2024/1T2024.csv"
 INTO TABLE demonstracoes_contabeis FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/demonstracoes_2024/2T2024.csv"
+LOAD DATA INFILE "sql_intuitive/demonstracoes_2024/2T2024.csv"
 INTO TABLE demonstracoes_contabeis FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/demonstracoes_2024/3T2024.csv"
+LOAD DATA INFILE "sql_intuitive/demonstracoes_2024/3T2024.csv"
 INTO TABLE demonstracoes_contabeis FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/demonstracoes_2024/4T2024.csv"
+LOAD DATA INFILE "sql_intuitive/demonstracoes_2024/4T2024.csv"
 INTO TABLE demonstracoes_contabeis FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/demonstracoes_2023/1T2023.csv"
+LOAD DATA INFILE "sql_intuitive/demonstracoes_2023/1T2023.csv"
 INTO TABLE demonstracoes_contabeis FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/demonstracoes_2023/2t2023.csv"
+LOAD DATA INFILE "sql_intuitive/demonstracoes_2023/2T2023.csv"
 INTO TABLE demonstracoes_contabeis FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/demonstracoes_2023/3T2023.csv"
+LOAD DATA INFILE "sql_intuitive/demonstracoes_2023/3T2023.csv"
 INTO TABLE demonstracoes_contabeis FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
-LOAD DATA INFILE "C:/Users/izael/Desktop/demonstracoes_2023/4T2023.csv"
+LOAD DATA INFILE "sql_intuitive/demonstracoes_2023/4T2023.csv"
 INTO TABLE demonstracoes_contabeis FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
