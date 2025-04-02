@@ -9,13 +9,16 @@
 </head>
 <body>
     <main>
+        <!--Aqui vai o container onde o teste será feito-->
         <div id="app">
             <h1>BUSCA OPERADORAS</h1>
             <input placeholder="Digite a razão social" v-model="razao">
+            <!--Esse evento de click dispara a função de buscar as operadoras-->
             <button @click="buscar">Buscar</button>
             <table>
                 <tr id="cabecalho">
                     <script>
+                        //Crie uma coleção com os nomes das colunas em forma UTF-8 e rodei um loop.
                         const caracteristicasOperadoras = [
                             "Registro ANS",
                             "CNPJ",
@@ -36,6 +39,7 @@
                         }
                     </script>
                 </tr>
+                <!--Aqui eu sei o loop do Vue para retornar o GET, pegando a pesquisa, como falei no "sobre.md" pela chave da razão social-->
                 <tr v-for="operadora in operadoras" :key="operadora['Razao_Social']">
                     <td>{{ operadora['Registro_ANS'] }}</td>
                     <td>{{ operadora['CNPJ']}}</td>
@@ -49,7 +53,6 @@
                     <td>{{ operadora['Fax'] }}</td>
                     <td>{{ operadora['Endereco_eletronico'] }}</td>
                 </tr>
-                    <!--{{ operadora['Nome_Fantasia'] || operadora['Razao_Social'] }}-->
 
             </table>
         </div>
@@ -58,10 +61,13 @@
 
     <script>
 
+        //Instanciando um Vue...
         document.addEventListener("DOMContentLoaded", function(){
             const { createApp } = Vue;
 
             createApp({
+                // Aqui vão os dados/variáveis que utilizei no front, o operadoras retorna o resultado da pesquisa e o operadorasOriginal é iniciada ao carregar a página,
+                // retornando todos os dados. A razão é o value que será pesquisado para a requisição GET
                 data() {
                     return {
                         razao: '',
@@ -70,32 +76,40 @@
                     };
                 },
                 methods: {
+                    //Criei esse método para buscar as operadoras, tava dando um erro retornando NaN no json, mas resolvi convertendo tudo para string
                     async buscar() {
+                        // Aqui é uma depuração no console para ver se o termo "razão" está sendo passado corretamente
                         console.log('Termo de busca: ', this.razao);
                         if(this.razao.trim() === '') {
                             this.operadoras = this.operadorasOriginal;
                             return;
                         }
                         try {
+                            // Aqui faz uma requisição no json que contém um objeto atribuido àquela chave "razão" que o usuário pesquisa.
                             const resposta = await fetch(`http://127.0.0.1:5000/buscar?razao=${encodeURIComponent(this.razao)}`);
                            
+                            // Aqui faz uma tratativa para informar se deu problema ao buscar dos dados
                             if (!resposta.ok) {
                                 const errorData = await resposta.text();
                                 throw new Error(errorData.erro || "Erro ao buscar dados");
                             }
 
-                    
+                            // Aqui é criado uma const data, que receberá os valores em formato json
                                 const data = await resposta.json();
+                                //Outra depuração para confirmar os dados recebidos
                                 console.log('Dados recebidos: ', data)
+                                //Os dados recebidos são colocados em forma de string na coleção "operadoras[]"
                                 this.operadoras = data;    
                             
-
+                            //Outra tratativa de exceção com o catch
                         } catch (error) {
                             console.error("Erro ao buscar operadoras: ", error.message);
                             alert(`Erro: ${error.message}`);
                         }
                     }
                 },
+                //Usei essa função nativa do vue para rodar um método que retornará todos os dados quando a página for carregada,
+                //Para não dar aquela impressão de "vazio" ao usuário
                 async created(){
                         try {
                             const resposta = await fetch("http://127.0.0.1:5000/operadoras");
@@ -110,6 +124,7 @@
                             console.error("Erro ao carregar operadoras: ", error);
                         }
                 }
+                //Aqui é onde vai ser gerado esse Vue, que é na div "app lá em cima".
             }).mount('#app');
 
         });
